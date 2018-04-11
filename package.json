@@ -3,8 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "firebase": "^4.12.1",
     "react": "^16.3.1",
     "react-dom": "^16.3.1",
+    "react-dropzone": "^4.2.9",
     "react-scripts": "0.9.5"
   },
   "devDependencies": {},
