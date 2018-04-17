@@ -3,17 +3,34 @@ import Dropzone from 'react-dropzone';
 import ResourceList from './ResourceList';
 
 class Resources extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      resources: []
+    }
+  }
+  
   componentDidMount() {
     this.props.database
-      .collection("resources")
+      .collection('resources')
       .onSnapshot((snapshot) => {
-        // to do
+        console.log('coll: ', snapshot)
+        this.setState({
+          resources: snapshot.docs
+        })
       });
+
+    this.props.database
+      .collection('resources')
+      .doc('Acknowledgements.html')
+      .get()
+      .then(response => console.log('doc: ', response))
   }
   componentWillUnmount() {
     var unsubscribe = this.props.database
-      .collection("resources")
-      .onSnapshot(function () {});
+      .collection('resources')
+      .onSnapshot(() => {});
     
     unsubscribe();
   }
@@ -40,7 +57,7 @@ class Resources extends Component {
   render() {
     return (
       <div>
-        <ResourceList />
+        <ResourceList resources={this.state.resources} />
         <Dropzone onDrop={this.onDrop.bind(this)} />
       </div>
     );
